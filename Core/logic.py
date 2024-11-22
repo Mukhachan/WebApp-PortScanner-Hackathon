@@ -18,9 +18,3 @@ def scan_all_ports(api_to_scan : str) -> dict:
             cont.close()
     all_ports_sorted = {x[0]: x[1] for x in sorted(all_ports.items(), key = lambda item: item[1] == "Закрыт")}
     return all_ports_sorted
-
-
-
-
-
-
