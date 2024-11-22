@@ -1,5 +1,33 @@
+@font-face {
+    font-family: "Comfortaa";
+    src: url("/static/Comfortaa.ttf");
+  }
 body {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+
+    width: 100%;
+}
+body * {
+    font-family: "Comfortaa";
+}
+.main {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 12px;
+}
+.btn{
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    width: 120px;
+    height: 42px;
+    border-radius: 52px;
+    color: #FFFFFF;
+    background-color: #191919;
+    font-size: 24px;
+    transition: box-shadow .1s ease-in;
 }
