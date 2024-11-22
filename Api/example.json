@@ -1,0 +1,40 @@
+[
+    {
+        "ip": "192.168.0.1",
+        "location" : {
+            "country": "Russia",
+            "city": "Moscow"
+        },
+        "os": "Windows 10",
+        "ports" : [
+            {
+                "port": 80,
+                "protocol": "TCP",
+                "service": "HTTP",
+                "status": 200,
+                "message": "Рекомендована обфускация JS"
+            },
+            {
+                "port": 443,
+                "protocol": "TCP",
+                "service": "HTTPS",
+                "status": 200,
+                "message": ""
+            },
+            {
+                "port": 22,
+                "protocol": "TCP",
+                "service": "SSH",
+                "status": 200,
+                "message": ""
+            },
+            {
+                "port": 3306,
+                "protocol": "TCP",
+                "service": "MySQL",
+                "status": 200,
+                "message": "Рекомендовано перенести на другой порт для безопасности"
+            }
+        ]
+    }
+]
