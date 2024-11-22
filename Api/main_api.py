@@ -10,6 +10,8 @@ app = FastAPI()
 def root():
     return FileResponse("example.json")
 
+
+
 #@app.get("/check_ip/{ips_text}/", response_class=PlainTextResponse)
 #async def check_ip(ips_text: int):
 #    return ips_text
