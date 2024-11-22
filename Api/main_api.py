@@ -1,14 +1,27 @@
 #import uvicorn
 from fastapi import FastAPI
 from typing import Union
-from fastapi.responses import FileResponse, PlainTextResponse
+from fastapi.responses import FileResponse, PlainTextResponse, JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+import json
 #import Core.logic
  
 app = FastAPI()
  
-@app.get("/", response_class=FileResponse)
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get("/", response_class=JSONResponse)
 def root():
-    return FileResponse("example.json")
+    data = json.load(open('example.json', 'r'))
+    return JSONResponse(content=data)
 
 
 

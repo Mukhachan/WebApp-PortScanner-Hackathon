@@ -1,3 +1,4 @@
 WebApp/.venv/
 API/.venv/
 API/__pycache__/
+.idea/
