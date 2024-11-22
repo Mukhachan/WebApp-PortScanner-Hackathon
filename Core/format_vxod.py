@@ -1,4 +1,4 @@
-from ipaddress import ip_network
+from ipaddress import ip_network, ip_address
 
 def format_cidr(cdir_ip : str) -> list:
     network = ip_network(cdir_ip)
