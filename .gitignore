@@ -1,1 +1,3 @@
 WebApp/.venv/
+API/.venv/
+API/__pycache__/
