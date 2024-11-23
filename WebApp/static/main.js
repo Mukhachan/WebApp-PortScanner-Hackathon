@@ -23,8 +23,7 @@ const add_result = (data) => {
     for (let index = 0; index < data.length; index++) {
         const element = data[index];
 
-        let ip_block = document.createElement("DIV")
-        ip_block.
+        main_block.insertAdjacentHTML()
 
         main_block.appendChild(ip_block)
     }
