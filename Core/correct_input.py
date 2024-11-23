@@ -1,6 +1,6 @@
 def correct_ipe(ip: str) -> bool:
     oshib = ValueError("Некорректный айпиадрес")
-    if ip.find('.') == -1 or ip.count('.') != 3:
+    if ip.count('.') != 3:
         raise oshib
     correct = ip.split('.')
     try:
@@ -8,7 +8,7 @@ def correct_ipe(ip: str) -> bool:
             x = int(x)
             if not (0 <= x <= 254):
                 raise ValueError
-    except ValueError:
+    except:
         raise ValueError("В айпиадресе содержатся некорретные символы")
     return True
 
@@ -24,7 +24,6 @@ def correct_cidr(ip: str) -> bool:
         x = int(correct[1])
         if not isinstance(x, int) and not (0 <= x <= 32):
             raise ValueError
-    except ValueError:
+    except:
         raise ValueError("В записи CIDR-нотации содержатся некорректные символы")
     return True
-
