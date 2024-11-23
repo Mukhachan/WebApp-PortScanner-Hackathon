@@ -6,9 +6,16 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 import tofile
 #import Core.logic
- 
+
+import sys
+sys.path.append("../")
+
+from config import db_connect
+
 app = FastAPI()
- 
+
+#connection_DB = db_connect
+
 origins = ["*"]
 
 app.add_middleware(

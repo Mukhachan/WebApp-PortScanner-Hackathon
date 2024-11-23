@@ -3,3 +3,4 @@ API/.venv/
 API/__pycache__/
 .idea/
 .DS_Store/
+__pycache__/
