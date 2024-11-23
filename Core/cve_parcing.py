@@ -41,7 +41,7 @@ def check_all_jsons(version: str, product: str) -> list[str, str, str]:
     return_list = []
     version = version.lower()
     product = product.lower()
-    "descriptions/value - проблема"
+    "references/ name - решение"
     for year in range(2000, datetime.today().year + 1):
         if isdir(f"Data/{year}"):
             for nac_ind_papka in range(0, 10):
@@ -53,6 +53,7 @@ def check_all_jsons(version: str, product: str) -> list[str, str, str]:
                         if correct_path_to_product(templates):
                             if templates["containers"]["cna"]["affected"][0]["product"].lower() == product:
                                 path_to_version = correct_path_to_version(templates)
+                                if path_to_version: continue
                                 if isinstance(path_to_version, bool):
                                     if path_to_version:
                                         if templates["containers"]["cna"]["affected"][0]["product"].lower() == version:
@@ -65,10 +66,15 @@ def check_all_jsons(version: str, product: str) -> list[str, str, str]:
                                             return_list.append(json_file)
                                             "dodel"
                                             break
+                                try:
+                                    return_list.append(
+                                        templates["containers"]["cna"]["descriptions"][0]["value"])
+                                except KeyError:
+                                    return_list.append("Нету описания проблемы")
 
-# check_all_jsons('1', '1')
+
+check_all_jsons('1', '1')
 with open(f"Data/2000/0xxx/CVE-2000-0025.json", 'r') as f:
     templates = load(f)
-print(templates["containers"]["cna"]["affected"][0]["versions"][0])
-print(templates["containers"]["cna"]["affected"][0])
+print(templates["containers"]["cna"]["descriptions"][0]["value"])
 
