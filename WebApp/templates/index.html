@@ -1,21 +1,73 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %} {% block content %} {{ super() }}
 
-{% block content %}
-{{ super() }}
+<div class="add_scan">
+    <input type="date" id="add_scan_id">
+    <label class="add_scan_ico" for="add_scan_id"><img src="/static/add_calendar.png"></label>
+</div>
 
 
 <div class="main">
-    <div>Введите IP-адрес</div>
-    <div><input class="input_ip" type="text"></div>
-    <div>
-        <button class="btn" type="button" onclick="analyse()">Анализ</button>
-    </div>
+    <div class="title">Введите IP-адрес</div>
+  <div><input class="input_ip" type="text" placeholder="IP-адрес/CIDR"/></div>
+  <div>ИЛИ</div>
+  <div class="input__wrapper">
+    <input name="file" accept="text/plain" type="file" id="input__file" class="input input__file">
+    <label for="input__file" class="input__file-button">
+       <span class="input__file-icon-wrapper">
+            <img class="input__file-icon" src="/static/add.svg" alt="Выбрать файл" width="25">
+        </span>
+       <span class="input__file-button-text">Выберите файл</span>
+    </label>
+ </div>
+ <script>
+    let inputs = document.querySelectorAll('.input__file');
+    Array.prototype.forEach.call(inputs, function (input) {
+      let label = input.nextElementSibling,
+        labelVal = label.querySelector('.input__file-button-text').innerText;
+  
+      input.addEventListener('change', function (e) {
+        let countFiles = '';
+        if (this.files && this.files.length >= 1)
+          countFiles = this.files.length;
+  
+        if (countFiles)
+          label.querySelector('.input__file-button-text').innerText = this.files[0].name;
+        else
+          label.querySelector('.input__file-button-text').innerText = labelVal;
+      });
+    });
 
-    <div id="result">
+</script>
+  <div style="z-index: 3;">
+    <button class="btn" type="button" onclick="analyse()">Анализ</button>
+  </div>
 
-    </div>
+  <div class="progress_animation">
+    <div class="progress_animation_text">Анализируем...</div>
+    <img
+      alt="Avanti e indietro loader"
+      width="732"
+      height="558"
+      data-id="3633228"
+      data-animated-url="https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif"
+      skip_resize="true"
+      srcset="
+        https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif 320w,
+        https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif 400w,
+        https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif 450w,
+        https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif 640w,
+        https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif 700w,
+        https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif 800w,
+        https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif 768w
+      "
+      sizes="(max-width: 919px) 100vw, max(768px, 98vh)"
+      src="https://cdn.dribbble.com/users/563824/screenshots/3633228/media/b620ccb3ae8c14ea5447d159ebb1da58.gif"
+    />
+  </div>
 
+  <div id="result">
+
+  </div>
 </div>
-
 
 {% endblock %}

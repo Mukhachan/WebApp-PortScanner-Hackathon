@@ -1,4 +1,6 @@
-[
+{
+    "pdf_report" : "https://example.com/ip-3flsdkfldkfnm.pdf",
+    "ips": [
     {
         "ip": "192.168.0.1",
         "location" : {
@@ -38,12 +40,12 @@
         ]
     },
     {
-        "ip": "192.168.0.1",
+        "ip": "192.168.0.2",
         "location" : {
             "country": "Russia",
             "city": "Moscow"
         },
-        "os": "Windows 10",
+        "os": "Windows 11",
         "ports" : [
             {
                 "port": 80,
@@ -76,3 +78,4 @@
         ]
     }
 ]
+}

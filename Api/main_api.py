@@ -1,4 +1,5 @@
 #import uvicorn
+import time
 from fastapi import FastAPI
 from typing import Union
 from fastapi.responses import FileResponse, PlainTextResponse, JSONResponse, StreamingResponse, Response
@@ -29,6 +30,7 @@ app.add_middleware(
 @app.get("/", response_class=JSONResponse)
 def root():
     data = json.load(open('example.json', 'r'))
+    time.sleep(2)
     return JSONResponse(content=data)
 
 @app.get("/check_ip/{ips_text}/", response_class=PlainTextResponse)
