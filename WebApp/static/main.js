@@ -6,16 +6,16 @@ const analyse = async () => {
     let params
     
     if (file) {
-        params = {
-            'info_type' : "ip",
-            'body' : ip,
-        }
+        params = new URLSearchParams({
+            info_type : "file",
+            body : file,
+        })   
     }
     else if (ip){
-        params = {
-            'info_type' : "file",
-            'body' : file,
-        }
+        params = new URLSearchParams({
+            info_type : "ip",
+            body : ip,
+        })
     }
     else { 
         alert("Инпут не должен быть пустым")
@@ -24,12 +24,11 @@ const analyse = async () => {
     
 
     document.querySelector(".progress_animation").style.display = "inline-flex"
-    const response = await fetch(API, {
+    const response = await fetch(API+'?'+params, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-          },
-        params: params
+          }
     })
     .finally(() => {
         document.querySelector(".progress_animation").style.display = "none";

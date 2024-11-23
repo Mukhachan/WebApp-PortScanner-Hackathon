@@ -1,10 +1,13 @@
 #import uvicorn
 import time
-from fastapi import FastAPI
+from typing import List, Annotated
+from fastapi import Query
+from fastapi import FastAPI, Request, Depends, Body
 from typing import Union
 from fastapi.responses import FileResponse, PlainTextResponse, JSONResponse, StreamingResponse, Response
 from fastapi.middleware.cors import CORSMiddleware
 import json
+from pydantic import BaseModel
 import tofile
 #import Core.logic
 
@@ -27,16 +30,25 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/", response_class=JSONResponse)
-def root():
-    data = json.load(open('example.json', 'r'))
-    time.sleep(2)
-    return JSONResponse(content=data)
+class CheckIPParams(BaseModel):
+    info_type: str
+    body: dict
+
+#@app.get("/", response_class=JSONResponse)
+#def root():
+#    data = json.load(open('example.json', 'r'))
+#    time.sleep(2)
+#    return JSONResponse(content=data)
+
+
+@app.get("/")
+def root(request: Request):    
+    print(request.query_params)
 
 @app.get("/check_ip/{ips_text}/", response_class=PlainTextResponse)
 async def check_ip(ips_text: str):
     return ips_text
-
+    
 @app.get("/check_ip/{ips_text}/pdf", response_class=StreamingResponse)
 async def check_ip(ips_text: str):
     data = json.load(open('example.json', 'r'))
