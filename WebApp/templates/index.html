@@ -5,10 +5,29 @@
     <label class="add_scan_ico" for="add_scan_id"><img src="/static/add_calendar.png"></label>
 </div>
 
+<script>
+
+</script>
+
+<div class="qrPopup">
+    <div class="close" style="font-size: 24pt"  onclick="close_modal('.qrPopup')">✖</div>
+    <div class="qrPopupInner" id="qrcode">
+    </div>
+    <div class=""></div>
+</div>
+
+<div class="clue">
+  Вы можете ввести данные для анализа 3 разными способами:
+  <p>- Вводом одного ip адреса. (Пример: 192.168.1.1)</p>
+  <p>- В виде CIDR нотации. (Пример: 2001:0db8:/32 или 10.0.0.0/24)</p>
+  <p>- Вводом одного доменного имени. (Пример: google.com)</p>
+  <p>- Вводом диапазона. (Пример: 192.168.1.1-192.168.1.100)</p>
+  <p>- Прикрепив файл с ip адресами</p>
+</div>
 
 <div class="main">
-    <div class="title">Введите IP-адрес</div>
-  <div><input class="input_ip" type="text" placeholder="IP-адрес/CIDR"/></div>
+  <div class="title">Введите IP-адрес</div>
+  <div><input class="input_ip" type="text" placeholder="IP"/></div>
   <div>ИЛИ</div>
   <div class="input__wrapper">
     <input name="file" accept="text/plain" type="file" id="input__file" class="input input__file">
@@ -66,7 +85,7 @@
   </div>
 
   <div id="result">
-
+    
   </div>
 </div>
 

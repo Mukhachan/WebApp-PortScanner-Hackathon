@@ -5,3 +5,4 @@ API/__pycache__/
 .DS_Store/
 __pycache__/
 WebApp/static/.DS_Store
+WebApp/.DS_Store

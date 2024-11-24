@@ -23,7 +23,7 @@ body * {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 12px;
+    gap: 16px;
     margin-top: 16px;
 }
 .title {
@@ -139,6 +139,7 @@ input[type='datetime'] {
 
 
 #result {
+    margin-top: 20px;
     width: 100%;
     display: flex;
     align-items: center;
@@ -152,10 +153,10 @@ input[type='datetime'] {
 
     height: 18rem;
     width: 60%;
-    padding: 20px;
+    padding: 20px 20px 20px 32px;
     overflow: scroll;
     overflow-x: hidden;
-    border: #000 solid 2px;
+    border: #000 solid 3px;
     border-radius: 8px;
 }
 
@@ -193,4 +194,65 @@ input[type='datetime'] {
     width: 100%;
     height: 100%;
     z-index: 0;
+}
+
+.save_res {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.install_pdf:hover, .genQR:hover{
+    text-decoration: none;
+}
+.genQR {
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+.qrPopup {  
+    display: none;
+    position: fixed;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 4px;
+    border: #000 solid 2px;
+
+    padding: 24px 24px 44px 24px;
+    top: 25%;
+    width: 240px;
+    height: 240px;
+
+    z-index: 10;
+    transition: margin-top 0.45s ease-in-out, background-color .4s ease-in ;
+}
+.qrPopupInner {
+    margin-top: 20px;
+}
+.qrPopupInner img {
+    width: 100%;
+    height: 100%;
+}
+
+.close {
+    position: absolute;
+    right: 14px;
+    top: 8px;
+    cursor: pointer;
+    transition: text-shadow .1s ease-in;
+} .close:hover {
+    text-shadow: 0 0 4px #282828;
+}
+
+.clue {
+    position: absolute;
+    top: 10px;
+    left: 40px;
+    border-radius: 16px;
+    border: #000 solid 3px;
+    padding: 8px 8px 0px 8px;
+    width: 320px;
+    /* height: 220px; */
+    text-wrap: wrap;
+    font-size: 12pt;
 }

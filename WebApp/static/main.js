@@ -1,43 +1,52 @@
 const API = "http://127.0.0.1:8000/"
 const analyse = async () => {
     let ip = document.querySelector(".input_ip").value
-    let file = document.querySelector(".input__file").files[0]
-
-    let params
+    let fileInput = document.querySelector(".input__file")
     
-    if (file) {
-        params = new URLSearchParams({
-            info_type : "file",
-            body : file,
-        })   
+    if (fileInput.files.length > 0) {
+        const formData = new FormData()
+        formData.append('file', fileInput, fileInput.files[0])
+
+        document.querySelector(".progress_animation").style.display = "block"
+        try {
+            const response = await fetch(API + 'file/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .finally(() => {
+                document.querySelector(".progress_animation").style.display = "none";
+            })
+            data = await response.json()
+            console.log(data)
+
+            return add_result(data)
+        } catch (error) {
+            console.error(error)
+        }
     }
     else if (ip){
-        params = new URLSearchParams({
-            info_type : "ip",
-            body : ip,
+        document.querySelector(".progress_animation").style.display = "block"
+        const response = await fetch(API+'ip/'+ip, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+              }
         })
+        .finally(() => {
+            document.querySelector(".progress_animation").style.display = "none";
+        })
+        data = await response.json()
+        console.log(data)
+
+        return add_result(data)
     }
     else { 
         alert("Инпут не должен быть пустым")
         return 
     }
-    
-
-    document.querySelector(".progress_animation").style.display = "inline-flex"
-    const response = await fetch(API+'?'+params, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-          }
-    })
-    .finally(() => {
-        document.querySelector(".progress_animation").style.display = "none";
-    })
-
-    data = await response.json()
-    console.log(data)
-
-    return add_result(data)
 }
 
 
@@ -74,8 +83,6 @@ const add_result = (data) => {
                         <ol><div class="port_service">Служба: ${port.service}</div></ol>
                         <ol><div class="port_message">Комментарий: ${port.message}</div></ol>
                     </ul>
-                    
-
                 </li>`;
         });
     
@@ -88,8 +95,10 @@ const add_result = (data) => {
     
     html += `
         <div class="save_res">
-            <div>Сохранить результаты в файл</div>
-            <div><a href="${data.pdf_report}"></a></div>
+            <div>Сохранить результаты в файл: </div>
+            <div><a class="install_pdf" href="${data.pdf_report}" target="__blank">Скачать PDF</a></div>
+            <div>|</div>
+            <div><a class="genQR" onclick=GenerateQR("${data.pdf_report}")>Создать QR</a></div>
         </div>
     `;
 
@@ -110,4 +119,22 @@ function toggleVisibility(portId) {
     } else {
         portsDiv.style.display = "none";
     }
+}
+
+const GenerateQR = (text) => {
+    document.querySelector(".qrPopup").style.display = 'block'
+    // Создание экземпляра QRCode
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: text, // Введите здесь текст или URL-адрес, который вы хотите закодировать в QR-код
+        width: 256, // Ширина QR-кода в пикселях
+        height: 256, // Высота QR-кода в пикселях
+        colorDark: "#000", // Цвет кода
+        colorLight: "#fff", // Цвет фона
+        correctLevel: QRCode.CorrectLevel.H, // уровень исправления ошибок
+    });
+}
+
+const close_modal = (el) => {
+    document.querySelector(".qrPopupInner").innerHTML = null
+    document.querySelector(el).style.display = "none"
 }
