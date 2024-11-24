@@ -245,6 +245,7 @@ input[type='datetime'] {
 }
 
 .clue {
+    display: none;
     position: absolute;
     top: 10px;
     left: 40px;
@@ -255,4 +256,6 @@ input[type='datetime'] {
     /* height: 220px; */
     text-wrap: wrap;
     font-size: 12pt;
+    opacity: 0;
+    transition: opacity 0.15 ease;
 }

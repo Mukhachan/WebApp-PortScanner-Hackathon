@@ -17,7 +17,7 @@
 </div>
 
 <div class="clue">
-  Вы можете ввести данные для анализа 3 разными способами:
+  Вы можете ввести данные для анализа 5 разными способами:
   <p>- Вводом одного ip адреса. (Пример: 192.168.1.1)</p>
   <p>- В виде CIDR нотации. (Пример: 2001:0db8:/32 или 10.0.0.0/24)</p>
   <p>- Вводом одного доменного имени. (Пример: google.com)</p>
@@ -27,7 +27,7 @@
 
 <div class="main">
   <div class="title">Введите IP-адрес</div>
-  <div><input class="input_ip" type="text" placeholder="IP"/></div>
+  <div><input class="input_ip" id="ipInput" type="text" placeholder="IP"/></div>
   <div>ИЛИ</div>
   <div class="input__wrapper">
     <input name="file" accept="text/plain" type="file" id="input__file" class="input input__file">
@@ -39,6 +39,19 @@
     </label>
  </div>
  <script>
+  
+    const ipInput = document.querySelector("#ipInput");
+    ipInput.addEventListener('focus', function() {
+      document.querySelector(".clue").style.display = 'block'
+      document.querySelector(".clue").style.opacity = '1'
+      console.log('Инпут в фокусе');
+    });
+    ipInput.addEventListener('blur', function() {
+      document.querySelector(".clue").style.opacity = '0'
+      document.querySelector(".clue").style.display = 'none'
+      console.log('Инпут потерял фокус');
+    });
+
     let inputs = document.querySelectorAll('.input__file');
     Array.prototype.forEach.call(inputs, function (input) {
       let label = input.nextElementSibling,
