@@ -10,14 +10,16 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from pydantic import BaseModel
 import tofile
-#import Core.logic
+import os
 
 import sys
 sys.path.append("../")
 
+from Core.logic import nmap_A_scan
 from config import db_connect
 
 app = FastAPI()
+ip_port_API = "http://127.0.0.1:8000/"
 
 #connection_DB = db_connect
 
@@ -37,23 +39,14 @@ class CheckIPParams(BaseModel):
 
 class Banner(BaseModel):
     file: bytes
-
-
     body: dict
-
-
-#@app.get("/", response_class=JSONResponse)
-#def root():
-#    data = json.load(open('example.json', 'r'))
-#    time.sleep(2)
-#    return JSONResponse(content=data)
-
-
-
 
 @app.get("/ip/{ipt}")
 async def ip_get(ipt: str):
-    print(ipt)
+    data = nmap_A_scan(ipt)
+    #data = json.load(open('example.json', 'r', encoding="utf-8"))
+    data["pdf_report"] = f"{ip_port_API}get_pdf/{len(os.listdir('pdfs'))}.pdf"
+    return JSONResponse(content=data)
 
 
 @app.post("/file/")
@@ -62,24 +55,25 @@ async def file_post(file: bytes = File()):
     print(file)
 
 
-
-
-
-
 @app.get("/check_ip/{ips_text}/", response_class=PlainTextResponse)
 async def check_ip(ips_text: str):
-    return ips_text
+    data = json.load(open('example.json', 'r'))
+    name = tofile.new_pdf(data)
     
-@app.get("/check_ip/{ips_text}/pdf", response_class=StreamingResponse)
-async def check_ip(ips_text: str):
-    data = json.load(open('example.json', 'r'))
-    pdf_db = tofile.new_pdf(data)
-    headers = {'Content-Disposition': 'inline; name="out_pdf"; filename="out.pdf"'}
-    return Response(pdf_db, headers=headers, media_type='application/pdf')
+    
+@app.get("/get_pdf/{ips_text}/", response_class=FileResponse)
+async def checked_get_pdf(ips_text: str):
+    if ips_text in os.listdir('pdfs'):
+        path = f"pdfs/{ips_text}"
+        headers = {'Content-Disposition': 'inline; name="out_pdf"; filename="out.pdf"'}
+        return FileResponse(path, headers=headers, media_type='application/pdf')
 
-@app.get("/check_ip/{ips_text}/csv")
-async def check_ip(ips_text: str):
-    data = json.load(open('example.json', 'r'))
-    csv_db = tofile.new_csv(data)
-    headers = {'Content-Disposition': 'inline; name="out_csv"; filename="out.csv"'}
-    return Response(csv_db, headers=headers, media_type='text/csv')
+@app.get("/get_file_csv/{ips_text}/")
+async def checked_get_csv(ips_text: str):
+    pass
+    #data = json.load(open('example.json', 'r'))
+    #data = []
+    #for i in range()
+    #csv_db = tofile.new_csv(data)
+    #headers = {'Content-Disposition': 'inline; name="out_csv"; filename="out.csv"'}
+    #return Response(csv_db, headers=headers, media_type='text/csv')

@@ -1,6 +1,7 @@
 from datetime import datetime
 from pymysql import  Connection 
 from pymysql.cursors import DictCursor
+import time
 from dateutil import tz
 
 timezon = tz.gettz('Europe/Moscow')
@@ -46,7 +47,7 @@ class DataBase:
         # Создаем строку запроса для проверки наличия записи по IP и порту
         sql_check_exists = """
             SELECT id 
-            FROM results 
+            FROM results
             WHERE ip = %s AND port = %s"""
         try:
             db = self.__cur
@@ -59,7 +60,21 @@ class DataBase:
         except Exception as ex:
             print(f"Error {ex}")
             return False
-            
+    
+    def every_ip_to_check(self, ip) -> bool:
+        sql_check_exists = """
+            SELECT datetime 
+            FROM results
+            WHERE ip = %s"""
+        try:
+            db = self.__cur
+            db.execute(sql_check_exists, (ip))
+            datetime_for_check = db.fetchone()
+            return datetime_for_check
+        except Exception as ex:
+            print(f"Error {ex}")
+            return False
+        
 
     def give_me_all(self):
         #Просто функция чтобы получить всё из базы данных
